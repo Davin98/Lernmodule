@@ -1,0 +1,4 @@
+#Hier soll die Hello world Datei ausgeführt werden.
+f = open("Hello_World.py", "r")
+print (f.read())
+f.close
