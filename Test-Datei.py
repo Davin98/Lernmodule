@@ -1,4 +1,6 @@
 #Hier soll die Hello world Datei ausgeführt werden.
-f = open("Hello_World.py", "r")
+f = open("Tabelle.txt", "r")
 print (f.read())
+input ("")
 f.close
+
