@@ -15,6 +15,8 @@ class Lernmodul:
         #Print zeile zum Visualisieren der Module
     def inhaltprint(self):
         print(self.Nr, self.Name, self.nachgaenger, self.dauer)
+    def inhaltget(self):
+        return (str(self.Nr) + "\t" + self.Name + "\t" + self.nachgaenger + "\t" + str(self.dauer))
    
     
     
@@ -23,30 +25,46 @@ class Lernmodulsammlung:
 
     ListeLM = []
     def __init__(self,path):
-        f = open("Tabelle.txt", "r")
+        f = open(path, "r")
 #in der schleife sollen die Zeilen aus der Tabelle.txt importiert und in die Variablen geschrieben werden        
         for i in f.readlines():
             n = i.strip().split('\t')
-            print(n)
+            ##Test um die bearbeitete Tabelle zu printen
+            #print(n)
             
             Nr = int(n[0])
             Name = n[1]
             nachgaenger = n[2]
             dauer = int(n[3])
-            #Test print um zu gucken, ob die tabelle richtig gesplitted wird
-            print(Nr, Name, nachgaenger, dauer)
-            #Aufrufen der Klasse Lernmodul und hängt die Daten an der Liste an
+            ##Test print um zu gucken, ob die tabelle richtig gesplitted wird
+            #print(Nr, Name, nachgaenger, dauer)
+            ##Aufrufen der Klasse Lernmodul und hängt die Daten an der Liste an
 
             self.ListeLM.append(Lernmodul(Nr, Name, nachgaenger, dauer))
-            
+        #f.close schließt die Datei wieder
         f.close
-        #Printet alle Module
+    def inhaltprint(self):
         for i in self.ListeLM:
             i.inhaltprint()
-        print(self.ListeLM)
+    def inhaltget(self,pos):
+
+        return self.ListeLM[pos].inhaltget()
+
         
-#f.close schließt die Datei wieder
+        #(str(self.Nr) + "\t" + self.Name + "\t" + self.nachgaenger + "\t" + str(self.dauer))
+        
+
+        
+            
+        
+        #Printet alle Module
+        # for i in self.ListeLM:
+        #    i.inhaltprint()
+        # print(self.ListeLM)
+        
+
 
 #test
 a = Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
-print (a)
+#print (a.inhaltget(1))
+
