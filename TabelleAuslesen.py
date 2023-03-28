@@ -1,19 +1,4 @@
-# #in diesem programm sollen die Zeilen aus der Datei "Tabelle.txt" ausgelesen werden.
-
-# print ("Bitte geben Sie an, welche Zeile Sie auslesen wollen. ")
-# #der "input" Operator speichert den input als string, weshalb man diesen hier als int zu konvertieren
-# x = int(input())
-# x = x-1
-# #Hier wird ie Zeile anhand der im input angegebenen Variable ausgegeben.
-# with open("Tabelle.txt") as f:
-#     data = f.readlines()[x]
-# print(data)
-# #In der if abfrage soll die letzte Zeile ermittelt werden und dann ein Text ausgegeben werden.
-# if (x==data[-1]):
-#     print("Glückwunsch, du hast die Lernsituation erfolgreich bestanden! ")
-
-
-
+#in diesem programm sollen die Zeilen aus der Datei "Tabelle.txt" ausgelesen werden.
 
 #Die Klasse soll die Lernmodulsammlung in Variablen konvertieren/ Klassenkürzel LM
 class Lernmodul:
@@ -23,17 +8,20 @@ class Lernmodul:
     dauer = int()
 #objekt Modul aus der Klasse Lernmodul
     def __init__(self, Nr, Name, nachgaenger, dauer):
-        self.nr = Nr
+        self.Nr = Nr
         self.Name = Name
         self.nachgaenger = nachgaenger
         self.dauer = dauer
-        
+        #Print zeile zum Visualisieren der Module
+    def inhaltprint(self):
+        print(self.Nr, self.Name, self.nachgaenger, self.dauer)
    
     
     
 #die Klasse soll den Inhalt der Tabelle.txt in Variablen konvertieren/ Klassenkürzel LMS
 class Lernmodulsammlung:
 
+    ListeLM = []
     def __init__(self,path):
         f = open("Tabelle.txt", "r")
 #in der schleife sollen die Zeilen aus der Tabelle.txt importiert und in die Variablen geschrieben werden        
@@ -47,9 +35,15 @@ class Lernmodulsammlung:
             dauer = int(n[3])
             #Test print um zu gucken, ob die tabelle richtig gesplitted wird
             print(Nr, Name, nachgaenger, dauer)
-            #Aufrufen der Klasse Lernmodul
-            Lernmodul(Nr, Name, nachgaenger, dauer)
+            #Aufrufen der Klasse Lernmodul und hängt die Daten an der Liste an
+
+            self.ListeLM.append(Lernmodul(Nr, Name, nachgaenger, dauer))
+            
         f.close
+        #Printet alle Module
+        for i in self.ListeLM:
+            i.inhaltprint()
+        print(self.ListeLM)
         
 #f.close schließt die Datei wieder
 
