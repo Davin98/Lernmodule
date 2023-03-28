@@ -49,14 +49,7 @@ class Lernmodulsammlung:
     def inhaltget(self,pos):
 
         return self.ListeLM[pos].inhaltget()
-
-        
-        #(str(self.Nr) + "\t" + self.Name + "\t" + self.nachgaenger + "\t" + str(self.dauer))
-        
-
-        
-            
-        
+    
         #Printet alle Module
         # for i in self.ListeLM:
         #    i.inhaltprint()
@@ -64,7 +57,8 @@ class Lernmodulsammlung:
         
 
 
-#test
+
 a = Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
+#test
 #print (a.inhaltget(1))
 

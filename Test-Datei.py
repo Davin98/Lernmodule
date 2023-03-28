@@ -1,16 +1,15 @@
 #1: Erstellen einer Dummy-Tabelle
 #2: Ausführen der TabelleAusführen funtkion
 #3: Vergleich der Dummytabelle mit der ausgeführten funtkion
-#4: ausgabe ob Test bestanden oder nicht
 from pathlib import Path
 import os
 import TabelleAuslesen
 #1:
 #tabelle wird erstellt und zeilen eingetragen
-def appendtab(mdn,name,pos,dauer):
+def appendtab(Nr,name,pos,dauer):
 #("Tabelle.txt", "a+") Öffnet eine .txt Datei, falls sie nicht vorhanden ist, wird diese vorher erstellt
     f = open("Tabelle.txt", "a+")
-    f.write(mdn + "\t" + name + "\t" + pos + "\t" + dauer + "\n")
+    f.write(Nr + "\t" + name + "\t" + pos + "\t" + dauer + "\n")
     f.close
 
 #die Variable f hat den pfad zur Tabelle.txt
@@ -36,7 +35,6 @@ Tabelle1 = TabelleAuslesen.Lernmodulsammlung("C:/Users/praktikant_software/Deskt
 zeile1 = "1\tGit\t2,3\t20"
 zeile2 = "2\tPy\t0\t5"
 zeile3 = "3\tSps\t0\t30"
-#inhalt1 = str(Tabelle1.inhaltget(1))
 
 
 i = 0
@@ -64,3 +62,4 @@ while i < 3:
             else:
                 print("nicht bestanden")
                 break
+os.remove("Tabelle.txt")
