@@ -25,6 +25,7 @@ class Lernmodulsammlung:
 
     ListeLM = []
     def __init__(self,path):
+        #Problem: die .txt datei wird nicht erzeugt, sodass ein Error erscheint
         f = open(path, "r")
 #in der schleife sollen die Zeilen aus der Tabelle.txt importiert und in die Variablen geschrieben werden        
         for i in f.readlines():
@@ -55,7 +56,6 @@ class Lernmodulsammlung:
         #    i.inhaltprint()
         # print(self.ListeLM)
         
-
 
 
 a = Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
