@@ -1,9 +1,10 @@
-#1: die in korelation zueinander bringen
-#2: abfrage ob in den lernmodulen ein vorgaenger existiert
-#3: vorfolger richtig benennen
+#1: Dummy-Tabelle erstellen
+#2: vergleichswerte erstellen
+#3:Vergleichswerte mit der aufgerufenen funktion vergleichen
 from pathlib import Path
 import TabelleAuslesen
 import os
+#1:
 
 #tabelle wird erstellt und zeilen eingetragen
 def appendtab(Nr,name,pos,dauer):
@@ -23,20 +24,48 @@ appendtab("1","Git","2,3","20")
 appendtab("2","Py","0","5")
 appendtab("3","Sps","0","30")
 
-tabelle1 = TabelleAuslesen.Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
+Tabelle1 = TabelleAuslesen.Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
 
-#1:
+#2:
+Modul1 = 0
+Modul2 = 1
+Modul3 = 1
 
-def korelation(self,path):
+Tabelle1.setvorgaenger()
+
+#test
+#print(Tabelle1.setvorgaenger())
+
+#3:
+
     
-#jetzt soll die nachgaenger Variable so interpretiert werden, dass die Ziffern verweise auf die nachfolgenden Pos darstellen
-    nachgaenger = tabelle1(2)
-    Variablenachgaenger = nachgaenger.strip(',')
-    print(Variablenachgaenger)
-
-#als nächstes sollen den Modulen die vorgänger module zugeordnet werden
-       
-#wenn die Variable z.B. 3 eingegeben wird soll die Dauer für Modul 3 + alle vorherigen Module im Didaktischen flow ausgegeben werden. (Modul 3 = 30 + Modul 1 = 20 == 50std aufwand)
+    
+i = 0
+while i < 3:
+    match i:
+        case 0:
+            if (Tabelle1.setvorgaenger() == Modul1):
+                print("Test " + str(i) + " bestanden")
+                i = 1
+            else:
+                print("nicht bestanden")
+                break
+        case 1:
+            if (Tabelle1.setvorgaenger() == Modul2):
+                print("Test " + str(i) + " bestanden")
+                i = 2
+            else:
+                print("nicht bestanden")
+                break
+        case 2:
+            if (Tabelle1.setvorgaenger() == Modul3):
+                print("Test " + str(i) + " bestanden")
+                print("Test bestanden")
+                i = 3
+            else:
+                print("nicht bestanden")
+                break
 
 
 os.remove("Tabelle.txt")
+print(Tabelle1.inhaltget(1))
