@@ -20,16 +20,18 @@ if f.is_file():
 #die Datei "Tabelle.txt" wird gelöscht
     os.remove("Tabelle.txt")  
 #in der Datei Tabelle.txt werden die folgenden zeilen eingetragen  
-appendtab("1","Git","2,3","20")
+appendtab("1","Git","2,3,4","20")
 appendtab("2","Py","0","5")
-appendtab("3","Sps","0","30")
+appendtab("3","Sps","4","30")
+appendtab("4","C++","0","40")
 
 Tabelle1 = TabelleAuslesen.Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
 
 #2:
-Modul1 = "1\tGit\t2,3\t20\t0"
-Modul2 = "2\tPy\t0\t5\t1"
-Modul3 = "3\tSps\t0\t30\t1"
+Modul1 = "1\tGit\t2,3,4\t20\t0\t20"
+Modul2 = "2\tPy\t0\t5\t1\t25"
+Modul3 = "3\tSps\t4\t30\t1\t50"
+Modul4 = "4\tC++\t0\t40\t31\t90"
 
 Tabelle1.setvorgaenger()
 
