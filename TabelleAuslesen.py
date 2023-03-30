@@ -17,16 +17,23 @@ class Lernmodul:
         #Print zeile zum Visualisieren der Module
     def inhaltprint(self):
         print(self.Nr, self.Name, self.nachgaenger, self.dauer)
+    def listeursprung(self):
+        return (str(self.Nr) + "\t" + self.Name + "\t" + self.nachgaenger + "\t" + str(self.dauer))
     def inhaltget(self):
         return (str(self.Nr) + "\t" + self.Name + "\t" + self.nachgaenger + "\t" + str(self.dauer) + "\t" + str(self.vorgaenger))
+        #gibt den wert "self.nachgaenger" auf abfrage aus
     def getnachgaenger(self):
         return self.nachgaenger
+        #setzt den Wert "self.vorgaenger" auf abfrage
     def setvorgaenger(self,vorgaenger):
         self.vorgaenger = vorgaenger
+        #gibt den wert "self.Nr" auf abfrage aus
     def getNr(self):
         return self.Nr
+        #gibt den wert "self.dauer" auf abfrage aus
     def getdauer(self):
         return self.dauer
+        #gibt den wert "self.vorgaenger" auf abfrage aus
     def getvorgaenger(self):
         return self.vorgaenger
     
@@ -58,6 +65,20 @@ class Lernmodulsammlung:
             f.close
             self.setvorgaenger()
 
+    def Modulzeile(self,n):
+        z = 0
+        for y in self.ListeLM:
+            
+            if int(n) == y.getNr():
+
+                return z
+            z = z + 1
+        return False
+        #in der schleife wird der Index zur Lernmodulnummer n wiedergegeben
+    # def vorgaengerpruefung(self,n):
+    #     for y in self.ListeLM:
+    #             if int(n) == y.getNr():
+    #                 return True
 
     def inhaltprint(self):
         for i in self.ListeLM:
@@ -65,37 +86,48 @@ class Lernmodulsammlung:
     def inhaltget(self,pos):
 
         return self.ListeLM[pos].inhaltget()
+    def listeursprung(self,pos):
+        return self.ListeLM[pos].listeursprung()
     def setvorgaenger(self):
         #Erstellt eine Leere Liste Modulnachfolger
         Modulnachfolger =[]
         #Durchläuft jede Zeile der Tabelle.txt
-        for n in self.ListeLM:
-            #füllt die Liste Modulnachfolger mit dem ergebnis aus der funktion getnachgaenger beispiel: Tabelle zeile 1 (1 Git n(2,3) 20)
-            Modulnachfolger.append(n.getnachgaenger())
+        # for n in self.ListeLM:
+            #füllt die Liste Modulnachfolger mit dem ergebnis aus der funktion getnachgaenger beispiel: Tabelle zeile 0 (1 Git n(2,3) 20)
+            # Modulnachfolger.append(n.getnachgaenger())
 
         #Durchläuft jede Zeile der Tabelle.txt
-        z = 0
+        
         for i in self.ListeLM:
             
             #Durchläuft jeden wert in der Liste Modulnachfolger
-            for m in Modulnachfolger:
-                #fragt ab, ob der Wert aus Modulnachfolger schon als Nr. vergeben ist 
-                #print("m= " + str(m) + "i.getNr= "+  str(i.getNr()) )
-                for n in m.strip(","):
-                    
-                    #print("n= " + str(n) + "i.getNr= "+  str(i.getNr()) )
-                    if n == i.getNr():
+            if len(str(i.getnachgaenger())) >= 2:
+                for m in i.getnachgaenger():
+                    m = m.strip(",")
+                    #fragt ab, ob der Wert aus Modulnachfolger schon als Nr. vergeben ist 
+                    #print("m= " + str(m) + "i.getNr= "+  str(i.getNr()) )
+                    for n in m:
+                        zeile = self.Modulzeile(n)
                         
-                    #ist dies der fall, so soll der Zeitwert des Moduls mit allen seinen vorgaengern addiert werden und in die Variable gespeichert werden.
-                        self.ListeLM[z].setvorgaenger(2)
+                        #print("n= " + str(n) + "i.getNr= "+  str(i.getNr()) )
+                        if type(zeile) ==int:
                         
-                    elif m == 0:
-                        self.ListeLM[z].setvorgaenger(3)
-                    else:
-                        print(str(z))
-                        self.ListeLM[z].setvorgaenger(1)
+                            
+                        #ist dies der fall, so soll der Zeitwert des Moduls mit allen seinen vorgaengern addiert werden und in die Variable gespeichert werden.
+                            self.ListeLM[zeile].setvorgaenger(i.getNr())
+            else:
+                n = i.getnachgaenger()    
+                zeile = self.Modulzeile(n)
                 
-            z = z + 1 
+                #print("n= " + str(n) + "i.getNr= "+  str(i.getNr()) )
+                if type(zeile) ==int:
+                
+                    
+                #ist dies der fall, so soll der Zeitwert des Moduls mit allen seinen vorgaengern addiert werden und in die Variable gespeichert werden.
+                    self.ListeLM[zeile].setvorgaenger(i.getNr())
+
+                
+             
     
 
             
@@ -107,8 +139,8 @@ class Lernmodulsammlung:
         
 
 
-a = Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
+# a = Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
 #test
 #print (a.inhaltget(1))
-a.setvorgaenger()
+# a.setvorgaenger()
 

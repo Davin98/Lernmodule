@@ -27,9 +27,9 @@ appendtab("3","Sps","0","30")
 Tabelle1 = TabelleAuslesen.Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
 
 #2:
-Modul1 = 0
-Modul2 = 1
-Modul3 = 1
+Modul1 = "1\tGit\t2,3\t20\t0"
+Modul2 = "2\tPy\t0\t5\t1"
+Modul3 = "3\tSps\t0\t30\t1"
 
 Tabelle1.setvorgaenger()
 
@@ -44,28 +44,34 @@ i = 0
 while i < 3:
     match i:
         case 0:
-            if (Tabelle1.setvorgaenger() == Modul1):
+            if (Tabelle1.inhaltget(i) == Modul1):
+                print(Tabelle1.inhaltget(i))
                 print("Test " + str(i) + " bestanden")
                 i = 1
             else:
+                print(Tabelle1.inhaltget(i))
                 print("nicht bestanden")
                 break
         case 1:
-            if (Tabelle1.setvorgaenger() == Modul2):
+            if (Tabelle1.inhaltget(i) == Modul2):
+                print(Tabelle1.inhaltget(i))
                 print("Test " + str(i) + " bestanden")
                 i = 2
             else:
+                print(Tabelle1.inhaltget(i))
                 print("nicht bestanden")
                 break
         case 2:
-            if (Tabelle1.setvorgaenger() == Modul3):
+            if (Tabelle1.inhaltget(i) == Modul3):
+                print(Tabelle1.inhaltget(i))
                 print("Test " + str(i) + " bestanden")
                 print("Test bestanden")
                 i = 3
+                
             else:
+                print(Tabelle1.inhaltget(i))
                 print("nicht bestanden")
                 break
 
-
 os.remove("Tabelle.txt")
-print(Tabelle1.inhaltget(1))
+#print(Tabelle1.inhaltget(1))

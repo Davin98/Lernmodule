@@ -41,21 +41,21 @@ i = 0
 while i < 3:
     match i:
         case 0:
-            if (Tabelle1.inhaltget(i) == zeile1):
+            if (Tabelle1.listeursprung(i) == zeile1):
                 print("Test " + str(i) + " bestanden")
                 i = 1
             else:
                 print("nicht bestanden")
                 break
         case 1:
-            if (Tabelle1.inhaltget(i) == zeile2):
+            if (Tabelle1.listeursprung(i) == zeile2):
                 print("Test " + str(i) + " bestanden")
                 i = 2
             else:
                 print("nicht bestanden")
                 break
         case 2:
-            if (Tabelle1.inhaltget(i) == zeile3):
+            if (Tabelle1.listeursprung(i) == zeile3):
                 print("Test " + str(i) + " bestanden")
                 print("Test bestanden")
                 i = 3
