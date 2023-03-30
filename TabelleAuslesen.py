@@ -7,14 +7,15 @@ class Lernmodul:
     Name = str(" ")
     nachgaenger = int()
     dauer = int()
-    vorgaenger = int()
     modulzeiten = int()
+    
 #objekt Modul aus der Klasse Lernmodul
     def __init__(self, Nr, Name, nachgaenger, dauer):
         self.Nr = Nr
         self.Name = Name
         self.nachgaenger = nachgaenger
         self.dauer = dauer
+        self.vorgaenger = []
         #Print zeile zum Visualisieren der Module
     def inhaltprint(self):
         print(self.Nr, self.Name, self.nachgaenger, self.dauer)
@@ -26,8 +27,10 @@ class Lernmodul:
     def getnachgaenger(self):
         return self.nachgaenger
         #setzt den Wert "self.vorgaenger" auf abfrage
-    def setvorgaenger(self,vorgaenger):
-        self.vorgaenger = vorgaenger
+    def appendvorgaenger(self,vorgaenger):
+        
+            self.vorgaenger.append(vorgaenger)
+            
         #gibt den wert "self.Nr" auf abfrage aus
     def getNr(self):
         return self.Nr
@@ -68,23 +71,20 @@ class Lernmodulsammlung:
                 self.ListeLM.append(Lernmodul(Nr, Name, nachgaenger, dauer))
         #f.close schließt die Datei wieder
             f.close
-            self.setvorgaenger()
+            self.appendvorgaenger()
             self.setmodulzeiten()
 
-    def Modulzeile(self,n):
+    def Modulzeile(self,Zeilen):
         z = 0
         for y in self.ListeLM:
             
-            if int(n) == y.getNr():
+            if int(Zeilen) == y.getNr():
 
                 return z
             z = z + 1
         return False
         #in der schleife wird der Index zur Lernmodulnummer n wiedergegeben
-    # def vorgaengerpruefung(self,n):
-    #     for y in self.ListeLM:
-    #             if int(n) == y.getNr():
-    #                 return True
+    
 
     # die funktion führt die funktion "inhaltprint" für jede zeile "i" in der funktion ListeLM aus
     def inhaltprint(self):
@@ -95,7 +95,7 @@ class Lernmodulsammlung:
         return self.ListeLM[pos].inhaltget()
     def listeursprung(self,pos):
         return self.ListeLM[pos].listeursprung()
-    def setvorgaenger(self):
+    def appendvorgaenger(self):
 
         #Durchläuft jede Zeile der Tabelle.txt
         
@@ -114,9 +114,11 @@ class Lernmodulsammlung:
                         
                         #wenn variable "zeile" vom typ int dann soll das ergebnis der Funktion setvorgaenger mit dem wert getNr aus der aktuellen zeile in die zeile der Tabelle eingetragen werden
                         if type(zeile) ==int:
-                        
-                        
-                            self.ListeLM[zeile].setvorgaenger(i.getNr())
+                        #zählt innerhalb der zeile "zeile" in ListeLM wie oft der wert aus "getNr" in der Zeile vorkommt.
+                            if self.ListeLM[zeile].vorgaenger.count(i.getNr()) == 0:
+                                #wenn "getNr" nicht vorgekommen ist, wird er in die liste "appendvorgaenger" für die aktuelle Zeile eingetragen
+
+                                self.ListeLM[zeile].appendvorgaenger(i.getNr())
             # ist das ergebnis aus getnachgaenger der Tabellenzeile "i" einstellig, so soll das ergebnis in die Variable "n" gespeichert werden
             else:
                 n = i.getnachgaenger()    
@@ -126,16 +128,20 @@ class Lernmodulsammlung:
                 
                 if type(zeile) ==int:
                 
-                    
+                    if self.ListeLM[zeile].vorgaenger.count(i.getNr()) == 0:
             
-                    self.ListeLM[zeile].setvorgaenger(i.getNr())
+                        self.ListeLM[zeile].appendvorgaenger(i.getNr())
+            if len(i.getvorgaenger()) == 0:
+                i.appendvorgaenger(0)
+                
+                
 
     def setmodulzeiten(self):
         
         
         for i in self.ListeLM:
             if i.getvorgaenger() != 0:
-                i.setmodulzeiten(i.getdauer() + self.ListeLM[self.Modulzeile(i.getvorgaenger())].getdauer())
+                i.setmodulzeiten(i.getdauer() + self.ListeLM[self.Modulzeile(int(i.getvorgaenger())[i])].getdauer())
             else:
                 i.setmodulzeiten(i.getdauer())
 
