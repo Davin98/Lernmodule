@@ -16,13 +16,14 @@ class Lernmodul:
         self.nachgaenger = nachgaenger
         self.dauer = dauer
         self.vorgaenger = []
+
         #Print zeile zum Visualisieren der Module
     def inhaltprint(self):
         print(self.Nr, self.Name, self.nachgaenger, self.dauer)
     def listeursprung(self):
         return (str(self.Nr) + "\t" + self.Name + "\t" + self.nachgaenger + "\t" + str(self.dauer))
     def inhaltget(self):
-        return (str(self.Nr) + "\t" + self.Name + "\t" + self.nachgaenger + "\t" + str(self.dauer) + "\t" + str(self.vorgaenger) + "\t" + str(self.modulzeiten))
+        return (str(self.Nr) + "\t" + self.Name + "\t" + self.nachgaenger + "\t" + str(self.dauer) + "\t" + ",".join(map(str,self.vorgaenger)) + "\t" + str(self.modulzeiten))
         #gibt den wert "self.nachgaenger" auf abfrage aus
     def getnachgaenger(self):
         return self.nachgaenger
@@ -44,6 +45,7 @@ class Lernmodul:
         self.modulzeiten = modulzeiten
     def getmodulzeiten(self):
          return self.modulzeiten
+    
     
 #die Klasse soll den Inhalt der Tabelle.txt in Variablen konvertieren/ Klassenkürzel LMS
 class Lernmodulsammlung:
@@ -103,14 +105,15 @@ class Lernmodulsammlung:
             
             #fragt ab ob der rückgabewert länger ist als 2 spalten
             if len(str(i.getnachgaenger())) >= 2:
+
+                a = i.getnachgaenger().split(",")
                 #durchläuft jede spalte die in der aktuellen .getnachgaenger funtkion übergeben wurde
-                for m in i.getnachgaenger():
+                for m in a:
                     #löscht die kommas, wenn das modul mehrere nachgaenger hat und speichert m als liste
-                    m = m.strip(",")
                     #geht jede stelle in m durch
-                    for n in m:
+                    # for n in m:
                         #speichert das ergebnis der funktion Modulzeile in die variable "zeile"
-                        zeile = self.Modulzeile(n)
+                        zeile = self.Modulzeile(m)
                         
                         #wenn variable "zeile" vom typ int dann soll das ergebnis der Funktion setvorgaenger mit dem wert getNr aus der aktuellen zeile in die zeile der Tabelle eingetragen werden
                         if type(zeile) ==int:
@@ -138,14 +141,19 @@ class Lernmodulsammlung:
 
     def setmodulzeiten(self):
         
-        
+
         for i in self.ListeLM:
-            if i.getvorgaenger() != 0:
-                i.setmodulzeiten(i.getdauer() + self.ListeLM[self.Modulzeile(int(i.getvorgaenger())[i])].getdauer())
+            spalte = 0
+            kommululierte_zeiten = i.getdauer()
+            if i.getvorgaenger()[0] != 0:
+                for n in i.getvorgaenger():
+                    kommululierte_zeiten = kommululierte_zeiten + self.ListeLM[self.Modulzeile(i.getvorgaenger()[spalte])].getdauer() 
+                    spalte =+1
+                i.setmodulzeiten(kommululierte_zeiten)
             else:
                 i.setmodulzeiten(i.getdauer())
-
-
+            
+                
 # a = Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
 #test
 #print (a.inhaltget(1))
