@@ -144,12 +144,12 @@ class Lernmodulsammlung:
 
         for i in self.ListeLM:
             spalte = 0
-            kommululierte_zeiten = i.getdauer()
+            komulierte_zeiten = i.getdauer()
             if i.getvorgaenger()[0] != 0:
                 for n in i.getvorgaenger():
-                    kommululierte_zeiten = kommululierte_zeiten + self.ListeLM[self.Modulzeile(i.getvorgaenger()[spalte])].getdauer() 
+                    komulierte_zeiten = komulierte_zeiten + self.ListeLM[self.Modulzeile(i.getvorgaenger()[spalte])].getdauer() 
                     spalte =+1
-                i.setmodulzeiten(kommululierte_zeiten)
+                i.setmodulzeiten(komulierte_zeiten)
             else:
                 i.setmodulzeiten(i.getdauer())
             
