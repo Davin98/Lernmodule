@@ -9,6 +9,7 @@ class Lernmodul:
     dauer = int()
     modulzeiten = int()
     
+    
 #objekt Modul aus der Klasse Lernmodul
     def __init__(self, Nr, Name, nachgaenger, dauer):
         self.Nr = Nr
@@ -16,6 +17,9 @@ class Lernmodul:
         self.nachgaenger = nachgaenger
         self.dauer = dauer
         self.vorgaenger = []
+        self.komulierte_zeiten = 0
+        self.abzuziehnde_zeiten = 0
+        self.startelement = []
 
         #Print zeile zum Visualisieren der Module
     def inhaltprint(self):
@@ -41,15 +45,15 @@ class Lernmodul:
         #gibt den wert "self.vorgaenger" auf abfrage aus
     def getvorgaenger(self):
         return self.vorgaenger
-    def setmodulzeiten(self, modulzeiten):
+    def setmodulzeit(self, modulzeiten):
         self.modulzeiten = modulzeiten
-    def getmodulzeiten(self):
+    def getmodulzeit(self):
          return self.modulzeiten
     
     
 #die Klasse soll den Inhalt der Tabelle.txt in Variablen konvertieren/ Klassenkürzel LMS
 class Lernmodulsammlung:
-
+    
     ListeLM = []
     def __init__(self,path):
         #Problem: die .txt datei wird nicht erzeugt, sodass ein Error erscheint
@@ -74,9 +78,9 @@ class Lernmodulsammlung:
         #f.close schließt die Datei wieder
             f.close
             self.appendvorgaenger()
-            self.setmodulzeiten()
+            self.setmodulzeit()
 
-    def Modulzeile(self,Zeilen):
+    def searchNum(self,Zeilen):
         z = 0
         for y in self.ListeLM:
             
@@ -92,6 +96,7 @@ class Lernmodulsammlung:
     def inhaltprint(self):
         for i in self.ListeLM:
             i.inhaltprint()
+    
     def inhaltget(self,pos):
 
         return self.ListeLM[pos].inhaltget()
@@ -110,10 +115,9 @@ class Lernmodulsammlung:
                 #durchläuft jede spalte die in der aktuellen .getnachgaenger funtkion übergeben wurde
                 for m in a:
                     #löscht die kommas, wenn das modul mehrere nachgaenger hat und speichert m als liste
-                    #geht jede stelle in m durch
                     # for n in m:
                         #speichert das ergebnis der funktion Modulzeile in die variable "zeile"
-                        zeile = self.Modulzeile(m)
+                        zeile = self.searchNum(m)
                         
                         #wenn variable "zeile" vom typ int dann soll das ergebnis der Funktion setvorgaenger mit dem wert getNr aus der aktuellen zeile in die zeile der Tabelle eingetragen werden
                         if type(zeile) ==int:
@@ -126,7 +130,7 @@ class Lernmodulsammlung:
             else:
                 n = i.getnachgaenger()    
                 #das ergebnis der Funktion Modulzeile mit dem wert "n" wird in die variable "zeile" gespeichert
-                zeile = self.Modulzeile(n)
+                zeile = self.searchNum(n)
                 
                 
                 if type(zeile) ==int:
@@ -136,22 +140,33 @@ class Lernmodulsammlung:
                         self.ListeLM[zeile].appendvorgaenger(i.getNr())
             if len(i.getvorgaenger()) == 0:
                 i.appendvorgaenger(0)
-                
-                
+    #Ermittlung der Kommullierten Zeiten des Moduls sammt vorgaenger
 
-    def setmodulzeiten(self):
-        
 
+    def setmodulzeit(self):
         for i in self.ListeLM:
-            spalte = 0
-            komulierte_zeiten = i.getdauer()
-            if i.getvorgaenger()[0] != 0:
-                for n in i.getvorgaenger():
-                    komulierte_zeiten = komulierte_zeiten + self.ListeLM[self.Modulzeile(i.getvorgaenger()[spalte])].getdauer() 
-                    spalte =+1
-                i.setmodulzeiten(komulierte_zeiten)
-            else:
-                i.setmodulzeiten(i.getdauer())
+                    spalte = 0
+                    komulierte_zeiten = i.getdauer()
+
+                    if i.getvorgaenger()[0] != 0:
+                        for n in i.getvorgaenger():
+                            komulierte_zeiten = komulierte_zeiten + self.ListeLM[self.searchNum(i.getvorgaenger()[spalte])].getdauer()
+                            spalte =+1
+                        i.setmodulzeit(komulierte_zeiten)
+                    else:
+                        i.setmodulzeit(komulierte_zeiten)
+
+    def abzuziehende_zeiten(self,start,ende):
+        for eintrag in self.ListeLM:
+            #falls die Funktion der zeitenermittlung noch nicht durchlaufen ist, wird sie hier aufgerufen
+            if eintrag.getmodulzeit() == None:
+                self.setmodulzeit()  
+                break 
+        #Hier wird die Dauer der übrigen Module anhand der Eingabewerte zurückgegeben z.B.(d.h. die zusammengerechneten Zeiten aus Modul2 - 
+        # die zusammengerechneten Zeiten aus Modul1 + die Zeit von Modul1)
+        return self.ListeLM[self.searchNum(ende)].getmodulzeit() - self.ListeLM[self.searchNum(start)].getmodulzeit() + self.ListeLM[self.searchNum(start)].getdauer()
+
+        
             
                 
 # a = Lernmodulsammlung("C:/Users/praktikant_software/Desktop/Davins_Git_Einstieg/Tabelle.txt")
