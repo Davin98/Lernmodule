@@ -164,6 +164,9 @@ class Lernmodulsammlung:
                 break 
         #Hier wird die Dauer der übrigen Module anhand der Eingabewerte zurückgegeben z.B.(d.h. die zusammengerechneten Zeiten aus Modul2 - 
         # die zusammengerechneten Zeiten aus Modul1 + die Zeit von Modul1)
+        if self.ListeLM[self.searchNum(ende)].getmodulzeit() - self.ListeLM[self.searchNum(start)].getmodulzeit() + self.ListeLM[self.searchNum(start)].getdauer() <= 0:
+            return ("Error: Modul eingabe bitte tauschen. \n")
+
         return self.ListeLM[self.searchNum(ende)].getmodulzeit() - self.ListeLM[self.searchNum(start)].getmodulzeit() + self.ListeLM[self.searchNum(start)].getdauer()
 
         
