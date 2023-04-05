@@ -1,11 +1,13 @@
-#1: Erstellen einer Dummy-Tabelle
-#2: Ausführen der TabelleAusführen funtkion
-#3: Vergleich der Dummytabelle mit der ausgeführten funtkion
+#In diesem Test sollen anhand der vorgaengerreihe die gesamt lernzeit der Module errechnet werden
+#1: Erstellen der Dummy-tabelle
+#2: aufrufen der Tabellen funktion
+#3: vergleichen der Rückgabewerte mit den Erwartungswerten
 from pathlib import Path
 import os
 import TabelleAuslesen
 #1:
 #tabelle wird erstellt und zeilen eingetragen
+
 def appendtab(Nr,name,pos,dauer):
 #("Tabelle.txt", "a+") Öffnet eine .txt Datei, falls sie nicht vorhanden ist, wird diese vorher erstellt
     f = open("Tabelle.txt", "a+")
@@ -32,34 +34,43 @@ Tabelle1 = TabelleAuslesen.Lernmodulsammlung("C:/Users/praktikant_software/Deskt
 
 #3:
 
-zeile1 = "1\tGit\t2,3\t20"
-zeile2 = "2\tPy\t0\t5"
-zeile3 = "3\tSps\t0\t30"
+Modul1 = "1\tGit\t2,3\t20\t0\t20"
+Modul2 = "2\tPy\t0\t5\t1\t25"
+Modul3 = "3\tSps\t0\t30\t1\t50"
 
 
 i = 0
 while i < 3:
     match i:
         case 0:
-            if (Tabelle1.listeursprung(i) == zeile1):
+            if (Tabelle1.inhaltget(i) == Modul1):
+                print(Tabelle1.inhaltget(i))
                 print("Test " + str(i) + " bestanden")
                 i = 1
             else:
+                print(Tabelle1.inhaltget(i))
                 print("nicht bestanden")
                 break
         case 1:
-            if (Tabelle1.listeursprung(i) == zeile2):
+            if (Tabelle1.inhaltget(i) == Modul2):
+                print(Tabelle1.inhaltget(i))
                 print("Test " + str(i) + " bestanden")
                 i = 2
             else:
+                print(Tabelle1.inhaltget(i))
                 print("nicht bestanden")
                 break
         case 2:
-            if (Tabelle1.listeursprung(i) == zeile3):
+            if (Tabelle1.inhaltget(i) == Modul3):
+                print(Tabelle1.inhaltget(i))
                 print("Test " + str(i) + " bestanden")
                 print("Test bestanden")
                 i = 3
+                
             else:
+                print(Tabelle1.inhaltget(i))
                 print("nicht bestanden")
                 break
+
 os.remove("Tabelle.txt")
+#print(Tabelle1.inhaltget(1))
